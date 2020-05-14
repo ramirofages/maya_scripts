@@ -1,0 +1,25 @@
+proc export(string $file_path) {
+
+    string $selected_shapes[] = `ls -selection -shapes -dag`;
+    
+    if (size($selected_shapes) !=  1) {
+      return;
+    }
+    string $shape_name = $selected_shapes[0];
+
+    $curve_info_name = `createNode curveInfo`;
+    
+    connectAttr(($shape_name+".worldSpace"), ($curve_info_name+".inputCurve"));
+    
+    float $positions[] = `getAttr ($curve_info_name+".controlPoints[*]")`;
+
+    $fileId = `fopen $file_path "w"` ;
+    for($line in $positions)  
+        fprint $fileId ($line+"\n") ;  
+    fclose($fileId);
+
+
+    delete $curve_info_name;
+}
+
+export("D:/testFile_v01.txt");
