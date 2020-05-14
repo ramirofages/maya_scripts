@@ -1,4 +1,4 @@
-proc export(string $file_path) {
+proc export_curve(string $file_path) {
 
     string $selected_shapes[] = `ls -selection -shapes -dag`;
     
@@ -22,4 +22,4 @@ proc export(string $file_path) {
     delete $curve_info_name;
 }
 
-export("D:/testFile_v01.txt");
+export_curve("D:/testFile_v01.txt");
